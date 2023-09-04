@@ -93,7 +93,7 @@ public class HotelManagementRepository {
         List<Facility> updated=new ArrayList<>();
         for(int i=0;i<newFacilities.size();i++){
             for(Facility facilities:hotelToUpdate.getFacilities()){
-                if(newFacilities.get(i)==facilities){
+             if(newFacilities.get(i)==facilities){
                     updated.add(newFacilities.get(i));
                     continue;}
                 else if (i== newFacilities.size()-1){
