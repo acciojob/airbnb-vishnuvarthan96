@@ -49,9 +49,11 @@ public class HotelManagementRepository {
 
             assert tempHotel != null;
             ts.add(tempHotel.getHotelName());
-            for (Hotel hotel:hotelDb.values()){
-                if(hotel.getFacilities().size()==tempHotel.getFacilities().size()){
-                    ts.add(hotel.getHotelName());
+            if(!(tempHotel.getFacilities().isEmpty())) {
+                for (Hotel hotel : hotelDb.values()) {
+                    if (hotel.getFacilities().size() == tempHotel.getFacilities().size()) {
+                        ts.add(hotel.getHotelName());
+                    }
                 }
             }
             if (!ts.isEmpty()) {
@@ -92,12 +94,13 @@ public class HotelManagementRepository {
             return hotelToUpdate;
         List<Facility> updated=new ArrayList<>();
         for(int i=0;i<newFacilities.size();i++){
-            for(Facility facilities:hotelToUpdate.getFacilities()){
-             if(newFacilities.get(i)==facilities){
+            List<Facility> oldFacilities=hotelToUpdate.getFacilities()
+        for(int j=0;j<oldFacilities.size();j++){
+             if(newFacilities.get(i)==oldFacilities.get(j)){
                     updated.add(newFacilities.get(i));
-                    continue;}
+                    break;}
                 else if (i== newFacilities.size()-1){
-                    updated.add(facilities);
+                    updated.add(oldFacilities.get(j));
                 }
 
             }
