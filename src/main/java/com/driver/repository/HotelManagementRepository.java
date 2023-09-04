@@ -94,13 +94,13 @@ public class HotelManagementRepository {
             return hotelToUpdate;
         List<Facility> updated=new ArrayList<>();
         for(int i=0;i<newFacilities.size();i++){
-            List<Facility> oldFacilities=hotelToUpdate.getFacilities()
-        for(int j=0;j<oldFacilities.size();j++){
-             if(newFacilities.get(i)==oldFacilities.get(j)){
+            List<Facility> oldFacilities=hotelToUpdate.getFacilities();
+            for (Facility oldFacility : oldFacilities) {
+                if (newFacilities.get(i) == oldFacility) {
                     updated.add(newFacilities.get(i));
-                    break;}
-                else if (i== newFacilities.size()-1){
-                    updated.add(oldFacilities.get(j));
+                    break;
+                } else if (i == newFacilities.size() - 1) {
+                    updated.add(oldFacility);
                 }
 
             }
