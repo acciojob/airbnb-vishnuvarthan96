@@ -90,8 +90,8 @@ public class HotelManagementRepository {
 
     public Hotel updateFacilities(List<Facility> newFacilities, String hotelName){
         Hotel hotelToUpdate=hotelDb.get(hotelName);
-        if(hotelToUpdate.getFacilities().equals(newFacilities))
-            return hotelToUpdate;
+//        if(hotelToUpdate.getFacilities().equals(newFacilities))
+//            return hotelToUpdate;
         List<Facility> updated=new ArrayList<>();
         List<Facility> oldFacilities=hotelToUpdate.getFacilities();
         for(int i=0;i<newFacilities.size();i++){
