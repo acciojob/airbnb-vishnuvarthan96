@@ -88,36 +88,61 @@ public class HotelManagementRepository {
         return ans;
     }
 
-    public Hotel updateFacilities(List<Facility> newFacilities, String hotelName){
-        Hotel hotelToUpdate=hotelDb.get(hotelName);
-        if(hotelToUpdate.getFacilities().equals(newFacilities))
-            return hotelToUpdate;
-        List<Facility> updated=new ArrayList<>();
-        List<Facility> oldFacilities=hotelToUpdate.getFacilities();
-        for(int i=0;i<newFacilities.size();i++){
-            for (int j=0;j<oldFacilities.size();j++) {
-                if (newFacilities.get(i) == oldFacilities.get(j)) {
-                    updated.add(newFacilities.get(i));
-                    break;
-                } else if (j == oldFacilities.size() - 1) {
-                    updated.add(newFacilities.get(i));
-                }
-
-            }
-        }
-        for(int i=0;i<oldFacilities.size();i++){
-            for(int j=0;j<newFacilities.size();j++){
-                if (newFacilities.get(i) == oldFacilities.get(j)) {
+//    public Hotel updateFacilities(List<Facility> newFacilities, String hotelName){
+//        Hotel hotelToUpdate=hotelDb.get(hotelName);
+//        if(hotelToUpdate.getFacilities().equals(newFacilities))
+//            return hotelToUpdate;
+//        List<Facility> updated=new ArrayList<>();
+//        List<Facility> oldFacilities=hotelToUpdate.getFacilities();
+//        for(int i=0;i<newFacilities.size();i++){
+//            for (int j=0;j<oldFacilities.size();j++) {
+//                if (newFacilities.get(i) == oldFacilities.get(j)) {
 //                    updated.add(newFacilities.get(i));
-                    break;
-                } else if (j == newFacilities.size() - 1) {
-                    updated.add(oldFacilities.get(i));
-                }
-            }
-        }
-        hotelToUpdate.setFacilities(updated);
-        hotelDb.put(hotelToUpdate.getHotelName(),hotelToUpdate);
-         return hotelToUpdate;
-    }
+//                    break;
+//                } else if (j == oldFacilities.size() - 1) {
+//                    updated.add(newFacilities.get(i));
+//                }
+//
+//            }
+//        }
+//        for(int i=0;i<oldFacilities.size();i++){
+//            for(int j=0;j<newFacilities.size();j++){
+//                if (newFacilities.get(i) == oldFacilities.get(j)) {
+//                    break;
+//                } else if (j == newFacilities.size() - 1) {
+//                    updated.add(oldFacilities.get(i));
+//                }
+//            }
+//        }
+//        hotelToUpdate.setFacilities(updated);
+//        hotelDb.put(hotelToUpdate.getHotelName(),hotelToUpdate);
+//         return hotelToUpdate;
+//    }
 
-}
+    public Hotel updateFacilities(List<Facility> newFacilities, String hotelName) {
+
+                // Get the hotel from the database or create a new one if it doesn't exist
+
+                // Get the existing facilities
+                List<Facility> existingFacilities = hotelDb.get(hotelName).getFacilities();
+
+                // Add new facilities that are not already in the existing facilities
+                for (Facility newFacility : newFacilities) {
+                    if (!existingFacilities.contains(newFacility)) {
+                        existingFacilities.add(newFacility);
+                    }
+                }
+
+                Hotel hotel=hotelDb.get(hotelName);
+                hotel.setFacilities(existingFacilities);
+
+                // Update the hotel in the database
+                hotelDb.put(hotelName, hotel);
+
+                return hotel;
+            }
+
+        }
+
+
+
