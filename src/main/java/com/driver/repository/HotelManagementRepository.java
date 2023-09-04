@@ -90,8 +90,8 @@ public class HotelManagementRepository {
 
     public Hotel updateFacilities(List<Facility> newFacilities, String hotelName){
         Hotel hotelToUpdate=hotelDb.get(hotelName);
-//        if(hotelToUpdate.getFacilities().equals(newFacilities))
-//            return hotelToUpdate;
+        if(hotelToUpdate.getFacilities().equals(newFacilities))
+            return hotelToUpdate;
         List<Facility> updated=new ArrayList<>();
         List<Facility> oldFacilities=hotelToUpdate.getFacilities();
         for(int i=0;i<newFacilities.size();i++){
@@ -103,6 +103,16 @@ public class HotelManagementRepository {
                     updated.add(newFacilities.get(i));
                 }
 
+            }
+        }
+        for(int i=0;i<oldFacilities.size();i++){
+            for(int j=0;j<newFacilities.size();j++){
+                if (newFacilities.get(i) == oldFacilities.get(j)) {
+//                    updated.add(newFacilities.get(i));
+                    break;
+                } else if (j == newFacilities.size() - 1) {
+                    updated.add(oldFacilities.get(i));
+                }
             }
         }
         hotelToUpdate.setFacilities(updated);
